@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>attr</title>
+</head>
+<body>
+    <!--<div id="c1">-->
+        <!--<p>hello</p>-->
+    <!--</div>-->
+
+
+    <ul>
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+        <li>444</li>
+        <li>555</li>
+        <li>add</li>
+    </ul>
+
+    <button>777777</button>
+
+
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+//    $("#c1").append("<b>uuu</b>")
+//    $("#c1").prepend("<b>uuu</b>")
+
+
+
+    $(function () {
+        $("li").click(function () {
+            alert("666")
+        })
+    });
+
+    $("ul").delegate("li","click", function () {
+        $("button").click(function () {
+            $("ul").append("<ul>777</ul>")
+        })
+    })
+</script>
+</body>
+</html>

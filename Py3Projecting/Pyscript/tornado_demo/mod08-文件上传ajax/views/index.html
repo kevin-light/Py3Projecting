@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <input type="file" id="img" />
+    <input type="button" value="ajax上传文件" onclick="UploadFile();" />
+    <script>
+        function UploadFile(){
+            var fileObj = document.getElementById("img").files[0];
+
+            var form = new FormData();
+            form.append("user", "v11111111");
+            form.append("favor", "v2222222");
+            form.append("fafafa", fileObj);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", '/index', true);
+            xhr.send(form);
+        }
+    </script>
+</body>
+</html>
+
+HTML - XMLHttpRequest

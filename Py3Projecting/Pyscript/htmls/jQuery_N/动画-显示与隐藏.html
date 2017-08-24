@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-1.12.4.js"></script>
+    <script>
+    /**
+ * Created by yuan on 16/5/5.
+ */
+
+$(document).ready(function(){
+    $("#hide").click(function(){
+        $("p").hide(1000);
+    });
+    $("#show").click(function(){
+        $("p").show(1000);
+    });
+
+//用于切换被选元素的 hide() 与 show() 方法。
+    $("#toggle").click(function(){
+        $("p").toggle(1000);
+    })
+
+ for (var i= 0;i<7;i++){
+//            颠倒了常规的$(A).append(B)的操作，即不是把B追加到A中，而是把A追加到B中。
+            $("<div>").appendTo(document.body);
+        }
+        $("div").click(function(){
+          $(this).hide(2000);
+        });
+});
+
+    </script>
+    <link type="text/css" rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--1 隐藏与显示-->
+    <!--2 淡入淡出-->
+    <!--3 滑动-->
+    <!--4 效果-回调:每一个动画执行完毕之后所能执行的函数方法或者所能做的一件事-->
+
+
+    <p>hello</p>
+    <button id="hide">隐藏</button>
+    <button id="show">显示</button>
+    <button id="toggle">隐藏/显示</button>
+
+</body>
+</html>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .pg-header{
+            height:48px;
+            background-color: #dddddd;
+
+        }
+        .pg-footer{
+            height:100px;
+            background-color: black;
+        }
+    </style>
+        {% block css %}{% end %}
+</head>
+<body>
+    <div class="pg-header">
+
+    </div>
+    <div class="pg-content">
+        {% block body %}{% end %}
+    </div>
+    <div class="pg-footer">asdf</div>
+    <script src="xxxj"></script>
+    {% block js %}{% end %}
+</body>
+</html>

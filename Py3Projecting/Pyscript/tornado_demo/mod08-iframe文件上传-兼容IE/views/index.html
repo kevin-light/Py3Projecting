@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <form id="my_form" name="form" action="/index" method="POST"  enctype="multipart/form-data" >
+        <div id="main">
+            <input name="user" type="text" />
+            <input name="favor" type="text" />
+            <input name="fafafa" id="my_file"  type="file" />
+            <input type="button" name="action" value="Upload" onclick="redirect()"/>
+            <iframe id='my_iframe' name='my_iframe' src=""  class="hide"></iframe>
+        </div>
+    </form>
+
+    <script src="/statics/jquery-1.12.4.js"></script>
+    <script>
+        function redirect(){
+            document.getElementById('my_iframe').onload = Testt;
+            document.getElementById('my_form').target = 'my_iframe';
+            document.getElementById('my_form').submit();
+
+        }
+
+        function Testt(ths){
+            var t = $("#my_iframe").contents().find("body").text();
+            console.log(t);
+        }
+    </script>
+</body>
+</html>
+
+HTML - iframe

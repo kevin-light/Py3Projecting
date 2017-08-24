@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="button" value="Ajax" onclick="DoAjax();">
+    <input type="button" value="JsonpAjax" onclick="JsonpAjax();" />
+    <input type="button" value="JsonpAjaxJX" onclick="JsonpAjaxJX();">
+    
+    <script src="/statics/jquery-1.12.4.js"></script>
+    <script src="http://alvin.com:8002/statics/jquery.cookie.js"></script>
+    <script>
+        function uuoo(arg) {
+            console.log(arg);
+        }
+        function DoAjax() {
+            $.ajax({
+                url: 'http://alvin.com:8002/index',
+                type: 'POST',
+                data: {'k1':'v1'},
+                success: function (arg) {
+                    console.log(arg);
+                }
+            })
+        }
+//        修改hosts :  127.0.0.1 kevin.com   127.0.0.1 alvin.com
+
+
+        function JsonpAjax() {
+
+            var tag = document.createElement('script');
+            tag.src = "http://alvin.com:8002/index?callback=uuoo";
+            document.head.appendChild(tag);     //添加src=""
+            document.head.removeChild(tag);     //移除src=""
+
+
+//            $.ajax({
+//                url:"http://alvin.com:8002/index",
+//                dataType:'jsonp',
+//                jsonp: 'callback',
+//                jsonpCallBack:'uuoo'
+//            })
+        }
+        
+        function list(dict) {
+            console.log(dict);
+        }
+        
+        function JsonpAjaxJX() {
+
+            var tag = document.createElement('script');
+            tag.src = "http://www.jxntv.cn/data/jmd-jxtv2.html?callback=list";
+            document.head.appendChild(tag);
+            document.head.removeChild(tag);
+
+//            $.ajax({
+//                url:"http://www.jxntv.cn/data/jmd-jxtv2.html?callback=list",
+//                dataType:'jsonp',
+//                jsonpCallBack:'list'
+//            })
+
+        }
+
+    </script>
+
+</body>
+</html>

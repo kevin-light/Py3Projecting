@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tab</title>
+    <style>
+        *{
+            margin: 0px;
+            padding:0px;
+        }
+        .outer{
+            width:70%;
+            background: gray;
+            margin:0 auto;
+            height: 600px;
+        }
+        .menu{
+            background: yellow;
+            cursor: pointer;
+        /*// 鼠标手型样式*/
+        }
+        .menu li{
+            display: inline-block;
+            height:30px;
+            line-height:30px;
+        }
+        .content{
+            background: blue;
+            padding: 20px;
+            height:auto;
+        }
+        .current{
+            background: aliceblue;
+            color: red;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <ul class="menu">
+            <li alex="c1" class="current" onclick="tab(this);">菜单一</li>
+            <li alex="c2" onclick="tab(this);">菜单二</li>
+            <li alex="c3" onclick="tab(this);">菜单三</li>
+        </ul>
+        <div class="content">
+            <div id="c1">内容一</div>
+            <div id="c2" class="hide">内容二</div>
+            <div id="c3" class="hide">内容三</div>
+        </div>
+    </div>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+    function tab(self) {
+        $(self).addClass("current").siblings().removeClass("current");
+        var index=$(self).attr("alex");
+        $("#"+index).removeClass("hide").siblings().addClass("hide");
+    }
+</script>
+</body>
+</html>

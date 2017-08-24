@@ -1,0 +1,6 @@
+2017-07-17 22:16:39 PM - root - DEBUG -logging_s1:  debug
+2017-07-17 22:16:39 PM - root - INFO -logging_s1:  info
+2017-07-17 22:16:39 PM - root - WARNING -logging_s1:  warning
+2017-07-17 22:16:39 PM - root - ERROR -logging_s1:  error
+2017-07-17 22:16:39 PM - root - CRITICAL -logging_s1:  critical
+2017-07-17 22:16:39 PM - root - DEBUG -logging_s1:  log

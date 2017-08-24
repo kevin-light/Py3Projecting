@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>批量编辑</title>
+        <!--<link rel="stylesheet" href="css/mycss.css" />-->
+        <style>
+            *{
+    margin: 0;
+    padding: 0;
+}
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.42em;
+  color:rebeccapurple;
+  background-color:goldenrod;
+}
+
+h1 {
+  font-size:3em;
+  font-weight: 300;
+  line-height:1em;
+  text-align: center;
+  color: #4DC3FA;
+}
+.blue {
+    color: #185875;
+}
+.yellow {
+    color: #FFF842;
+    }
+
+/*!*弹出层罩子*!*/
+#full {
+    background-color:gray;
+    left:0;
+    opacity:0.7;
+    position:absolute;
+    top:0;
+    filter:alpha(opacity=30);
+}
+
+.modified {
+    background-color: #1F2739;
+    border:3px solid whitesmoke;
+    height:400px;
+    left:50%;
+    margin:-200px 0 0 -200px;
+    padding:1px;
+    position:fixed;
+    /*position:absolute;*/
+    top:50%;
+    width:400px;
+    display:none;
+}
+li {
+    list-style: none;
+    margin: 20px 0 0 50px;
+    color: #FB667A;
+}
+input[type="text"] {
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  /*transition: box-shadow 3s, border 3s;*/
+
+}
+
+.iputbutton {
+    margin: 60px 0 0 50px;
+    color: whitesmoke;
+    background-color: #FB667A;
+    height: 30px;
+    width: 100px;
+    border: 1px dashed;
+
+}
+
+
+
+
+.container th h1 {
+    font-weight: bold;
+    font-size: 1em;
+      text-align: left;
+      color: #185875;
+}
+
+.container td {
+    font-weight: normal;
+    font-size: 1em;
+}
+
+.container {
+
+    width: 80%;
+    margin: 0 auto;
+
+}
+
+.container td, .container th {
+    padding-bottom: 2%;
+    padding-top: 2%;
+      padding-left:2%;
+}
+
+/*单数行*/
+.container tr:first-child {
+    background-color: red;
+}
+
+/*偶数行*/
+.container tr:not(first-child){
+      background-color: cyan;
+}
+
+.container th {
+    background-color: #1F2739;
+}
+
+.container td:last-child {
+    color: #FB667A;
+}
+/*鼠标进过行*/
+.container tr:hover {
+   background-color: #464A52;
+}
+/*鼠标进过列*/
+.container td:hover {
+  background-color: #FB667A;
+  color: #403E10;
+  font-weight: bold;
+  transform: translate3d(5px, -5px, 0);
+}
+
+
+
+
+
+        </style>
+        <script src="jquery-2.2.3.js"></script>
+        <script>
+            //点击【编辑】显示
+
+$(function () {
+
+
+    $("table[name=host] tr:gt(0) td:last-child").click(function (event) {
+
+        alert("234");
+//        $("#full").css({height:"100%",width:"100%"});
+
+        $(".modified").data('current-edit-obj', $(this));
+
+        $(".modified,#full").show();
+
+        var hostname = $(this).siblings("td[name=hostname]").text();
+        $(".modified #hostname").val(hostname);
+        var ip = $(this).siblings("td[name=ip]").text();
+        $(".modified #ip").val(ip);
+        var port = $(this).siblings("td[name=port]").text();
+        $(".modified #port").val(port);
+    });
+    //取消编辑
+    $(".modified #cancel").bind("click", function () {
+        $(".modified,#full").hide();
+    });
+
+//    确定修改
+    $(".modified #ok").bind("click", function (event) {
+        var check_status = true;
+        var ths = $(".modified").data('current-edit-obj');
+        var hostname = $(".modified #hostname").val().trim();
+        var ip = $(".modified #ip").val().trim();
+        var port = $(".modified #port").val().trim();
+        var port = parseInt(port);
+        console.log(port);
+        //        端口为空设置为22
+        if (isNaN(port)) {
+            alert("您没有设置正常的SSH端口号，将采用默认22号端口");
+            var port = 22;
+        }else if ( port > 65535) {
+        //            如果端口不是一个数字 或者端口大于65535
+            var check_status = false;
+            $(".modified #port").css("border-color","red");
+            alert("端口号超过范围!")
+        };
+        // 主机和ip不能是空
+        if ( hostname == ""){
+            var check_status = false;
+            $(".modified #hostname").css("border-color","red");
+        }else if (ip == "") {
+            var check_status = false;
+            $(".modified #ip").css("border-color","red");
+        };
+        if (check_status == false){
+            return false;
+        }else{
+            //$(this).css("height","60px")   为什么不用$(this),而用$()
+            $(ths).siblings("td[name=hostname]").text(hostname);
+            $(ths).siblings("td[name=ip]").text(ip);
+            $(ths).siblings("td[name=port]").text(port);
+            $(".modified,#full").hide();
+        };
+
+    });
+
+});
+
+        </script>
+    </head>
+    <body>
+        <h1>
+            <span class="blue">&lt;</span>Homework1<span class="blue">&gt;</span> <span class="yellow">HostList</span>
+        </h1>
+        <div id="full">
+            <div class="modified">
+                <li>主机名：<input id="hostname" type="text" value="" />*</li>
+                <li>ip地址：<input id="ip" type="text" value="" />*</li>
+                <li>端口号：<input id="port" type="text" value="" />[0-65535]</li>
+                    <div id="useraction">
+                     <input class="iputbutton" type="button" name="确定" id="ok" value="确定"/>
+                    <input class="iputbutton" type="button" name="取消" id="cancel" value="取消"/>
+                    </div>
+            </div>
+        </div>
+        <table class="container" name="host">
+            <tr>
+                <th><h1>主机名</h1></th>
+                <th><h1>IP地址</h1></th>
+                <th><h1>端口</h1></th>
+                <th><h1>操作</h1></th>
+
+            </tr>
+            <tr>
+                <td name="hostname">web01</td>
+                <td name="ip">192.168.2.1</td>
+                <td name="port">22</td>
+                <td>编辑 </td>
+            </tr>
+            <tr>
+                <td name="hostname">web02</td>
+                <td name="ip">192.168.2.2</td>
+                <td name="port">223</td>
+                <td>编辑 </td>
+            </tr>
+            <tr>
+                <td name="hostname">web03</td>
+                <td name="ip">192.168.2.3</td>
+                <td name="port">232</td>
+                <td>编辑 </td>
+            </tr>
+            <tr>
+                <td name="hostname">web04</td>
+                <td name="ip">192.168.2.4</td>
+                <td name="port">232</td>
+                <td>编辑 </td>
+            </tr>
+        </table>
+
+
+    </body>
+</html>
+
+
+
+
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#    <style>#}
+{#        .shade{#}
+{#            position: fixed;#}
+{#            left:0;#}
+{#            top:0;#}
+{##}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#    <div>#}
+{#        <table border="1">#}
+{#            <thead>#}
+{#            <tr>#}
+{#                <th>主机名</th>#}
+{#                <th>IP</th>#}
+{#                <th>端口</th>#}
+{#                <th onclick="Edit(this);">操作</th>#}
+{#            </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#            <tr>#}
+{#                <td>c1.com</td>#}
+{#                <td>11111</td>#}
+{#                <td>8888</td>#}
+{#                <td>edit</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>c2.com</td>#}
+{#                <td>11111</td>#}
+{#                <td>8888</td>#}
+{#                <td>edit</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>c3.com</td>#}
+{#                <td>11111</td>#}
+{#                <td>8888</td>#}
+{#                <td>edit</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>c4.com</td>#}
+{#                <td>11111</td>#}
+{#                <td>8888</td>#}
+{#                <td>edit</td>#}
+{#            </tr>#}
+{##}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
+{#    <div>#}
+{#        <from action="">#}
+{#            <p><input type="text" name="host"></p>#}
+{#            <p><input type="text" name="ip"></p>#}
+{#            <p><input type="text" name="port"></p>#}
+{#            <input type="submit" value="提交">#}
+{#            <input type="button" value="取消">#}
+{#        </from>#}
+{#    </div>#}
+{#</body>#}
+{#</html>#}
